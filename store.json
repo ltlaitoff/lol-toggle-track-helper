@@ -1,0 +1,26 @@
+{
+	"lastMatch": {
+		"id": "EUW1_6265399179",
+		"gameStart": 1675600447576,
+		"gameEnd": 1675601840605,
+		"teamPosition": "MIDDLE",
+		"kills": 7,
+		"deaths": 5,
+		"assists": 2,
+		"championName": "Katarina",
+		"win": true
+	},
+	"history": [
+		{
+			"id": "EUW1_6265399179",
+			"gameStart": 1675600447576,
+			"gameEnd": 1675601840605,
+			"teamPosition": "MIDDLE",
+			"kills": 7,
+			"deaths": 5,
+			"assists": 2,
+			"championName": "Katarina",
+			"win": true
+		}
+	]
+}

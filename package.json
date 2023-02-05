@@ -1,38 +1,39 @@
 {
-  "name": "lol-toggle-track-helper",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/index.js",
-    "dev": "npx tsc && concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ltlaitoff/lol-toggle-track-helper.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ltlaitoff/lol-toggle-track-helper/issues"
-  },
-  "homepage": "https://github.com/ltlaitoff/lol-toggle-track-helper#readme",
-  "dependencies": {
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "concurrently": "^7.6.0",
-    "eslint": "^8.33.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.0",
-    "nodemon": "^2.0.20",
-    "prettier": "^2.8.3",
-    "typescript": "^4.9.5"
-  }
+	"name": "lol-toggle-track-helper",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"build": "npx tsc",
+		"start": "node dist/index.js",
+		"dev": "npx tsc && concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ltlaitoff/lol-toggle-track-helper.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ltlaitoff/lol-toggle-track-helper/issues"
+	},
+	"homepage": "https://github.com/ltlaitoff/lol-toggle-track-helper#readme",
+	"dependencies": {
+		"chalk": "4.1.2",
+		"dotenv": "^16.0.3"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.18",
+		"@typescript-eslint/eslint-plugin": "^5.50.0",
+		"@typescript-eslint/parser": "^5.50.0",
+		"concurrently": "^7.6.0",
+		"eslint": "^8.33.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-promise": "^6.0.0",
+		"nodemon": "^2.0.20",
+		"prettier": "^2.8.3",
+		"typescript": "^4.9.5"
+	}
 }
