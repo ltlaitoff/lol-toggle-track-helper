@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import fs from 'fs'
 import { storeLog } from '../helpers/logs'
 import { StoreData, MathInfo } from '../types/types'
 
@@ -9,64 +9,83 @@ const BASE_TEMPLATE: StoreData = {
 	history: []
 }
 
-export const initialize = async () => {
-	storeLog('initialize')
-	const filehandle = await fs.open(FILE, 'a+')
-
-	try {
-		const data = await filehandle.readFile({ encoding: 'utf8' })
-
-		if (data.length === 0) {
-			await filehandle.write(JSON.stringify(BASE_TEMPLATE, null, 2))
-		}
-	} finally {
-		if (filehandle) await filehandle.close()
-	}
+const openFile = (type = 'a+') => {
+	return fs.openSync(FILE, type)
 }
 
-export const getDataFromFile = async () => {
-	storeLog('getData')
-	const filehandle = await fs.open(FILE, 'r')
-
-	try {
-		const data = await filehandle.readFile({ encoding: 'utf8' })
-
-		return JSON.parse(data) as StoreData
-	} finally {
-		if (filehandle) await filehandle.close()
-	}
+const closeFile = (file: number) => {
+	fs.closeSync(file)
 }
 
-export const getLastMatch = async () => {
-	storeLog('getLastMatch')
+export const initialize = () => {
+	storeLog('Initialize')
+	const file = openFile()
 
-	const data = await getDataFromFile()
+	const data = fs.readFileSync(file, { encoding: 'utf8' })
 
+	if (data.length === 0) {
+		fs.writeFileSync(file, JSON.stringify(BASE_TEMPLATE, null, 2))
+	}
+
+	closeFile(file)
+}
+
+export const getDataFromFile = () => {
+	storeLog('Get data from file')
+	const file = openFile()
+
+	const data = fs.readFileSync(file, { encoding: 'utf8' })
+
+	closeFile(file)
+	return JSON.parse(data) as StoreData
+}
+
+export const getLastMatch = () => {
+	storeLog('Get last match')
+	const file = openFile()
+
+	const data = getDataFromFile()
+	if (data === null) return null
+
+	closeFile(file)
 	return data.lastMatch
 }
 
-export const getHistory = async () => {
+export const getHistory = () => {
 	storeLog('getHistory')
+	const file = openFile()
 
-	const data = await getDataFromFile()
+	const data = getDataFromFile()
+	if (data === null) return null
 
+	closeFile(file)
 	return data.history
 }
 
-export const addMatch = async (match: MathInfo) => {
-	storeLog('addMatch')
-	const filehandle = await fs.open(FILE, 'a+')
+export const addMatch = (match: MathInfo) => {
+	storeLog(`Add match ${match.id}`)
 
-	try {
-		const data = await filehandle.readFile({ encoding: 'utf8' })
-		const objectData = JSON.parse(data) as StoreData
+	const data = getDataFromFile()
 
-		objectData.history.push(match)
-		objectData.lastMatch = match
+	let isLast = false
+	let isInHistory = false
 
-		await filehandle.truncate()
-		await filehandle.writeFile(JSON.stringify(objectData, null, 2))
-	} finally {
-		if (filehandle) await filehandle.close()
+	if (data.lastMatch?.id === match.id) {
+		storeLog(`Match already is last`)
+		isLast = true
 	}
+
+	if (data.history.find(item => item.id === match.id)) {
+		storeLog(`Match already in history`)
+		isInHistory = true
+	}
+
+	if (!isLast) data.lastMatch = match
+	if (!isInHistory) data.history.push(match)
+
+	const file = openFile('w')
+
+	fs.writeFileSync(file, JSON.stringify(data, null, 2))
+
+	closeFile(file)
 }

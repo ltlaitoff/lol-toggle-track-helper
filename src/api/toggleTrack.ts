@@ -27,5 +27,5 @@ export const timeEntries = async (data: TimeEntriesType) => {
 				'base64'
 			)}`
 		}
-	}).then(response => response.json())
+	}).then(response => response.text())
 }

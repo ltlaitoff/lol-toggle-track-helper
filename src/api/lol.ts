@@ -1,19 +1,17 @@
+import { lolApiLog } from '../helpers'
 import { MathInfo } from '../types/types'
 const API_TOKEN = process.env.LOL_API_TOKEN
-const HOST = process.env.LOL_HOST_BASE
+const HOST = 'https://europe.api.riotgames.com/lol/match/v5/matches'
 const PUUID = process.env.LOL_PUUID
 
 export const getAllUserMatches = () => {
-	console.log('PUUID: ', PUUID)
+	lolApiLog(`Get all matches`)
 
-	return fetch(
-		`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${PUUID}/ids?start=0&count=30`,
-		{
-			headers: {
-				'X-Riot-Token': API_TOKEN
-			}
+	return fetch(`${HOST}/by-puuid/${PUUID}/ids?start=0&count=60`, {
+		headers: {
+			'X-Riot-Token': API_TOKEN
 		}
-	).then(response => response.json() as Promise<string[]>)
+	}).then(response => response.json() as Promise<string[]>)
 }
 
 /* 
@@ -23,14 +21,13 @@ export const getAllUserMatches = () => {
 	*/
 
 export const getMatchInfo = (mathId: string): Promise<MathInfo> => {
-	return fetch(
-		`https://europe.api.riotgames.com/lol/match/v5/matches/${mathId}`,
-		{
-			headers: {
-				'X-Riot-Token': API_TOKEN
-			}
+	lolApiLog(`Get math info ${mathId}`)
+
+	return fetch(`${HOST}/${mathId}`, {
+		headers: {
+			'X-Riot-Token': API_TOKEN
 		}
-	)
+	})
 		.then(response => response.json())
 		.then(data => {
 			const summoner = data.info.participants.find(
