@@ -1,6 +1,6 @@
 import { lolApiLog } from '../helpers'
 import { MathInfo } from '../types/types'
-const API_TOKEN = process.env.LOL_API_TOKEN
+const API_TOKEN = 'RGAPI-bdcf43d9-54a1-48a9-86a1-d9e8fcb9d02b'
 const HOST = 'https://europe.api.riotgames.com/lol/match/v5/matches'
 const PUUID = process.env.LOL_PUUID
 
